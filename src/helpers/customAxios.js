@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://api.integrador.dev/api";
+const BASE_URL = "https://api-integrador-nu.vercel.app/api";
 
 const customAxios = axios.create({
   baseURL: BASE_URL,

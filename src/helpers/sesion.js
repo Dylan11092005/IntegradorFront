@@ -2,7 +2,7 @@ import axios from "axios";
 
 const login = async (correo, contrasena) => {
   try {
-    const res = await axios.post("https://api.integrador.dev/api/auth/login", {
+    const res = await axios.post("https://api-integrador-nu.vercel.app/api/auth/login", {
       correo,
       contrasena,
     });
@@ -35,7 +35,7 @@ const logout = async () => {
     console.warn("No se encontró un usuario autenticado para cerrar sesión");
     return;
   }
-  axios.post("https://api.integrador.dev/api/auth/logout", {id: localStorage.getItem("idUsuario")})
+  axios.post("https://api-integrador-nu.vercel.app/api/auth/logout", {id: localStorage.getItem("idUsuario")})
     .then((response) => {
       console.log("Sesión cerrada correctamente", response.data);
     })
