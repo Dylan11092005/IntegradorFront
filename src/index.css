@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+:root {
+  
+    --color-fondo: #f3f4f6;
+    --color-blanco: #fff;
+    --color-amarillo: #f9b700;
+    --color-amarillo-hover: #f0a500;
+    --color-verde: #059669;
+    --color-verde-oscuro: #00796B; /* Este es el color del footer */
+    --color-gris-borde: #ccc;
+    --color-gris-claro: #f8f9fa;
+    --color-texto: #212529;
+    --color-verde-form: #00897B;
+  }
