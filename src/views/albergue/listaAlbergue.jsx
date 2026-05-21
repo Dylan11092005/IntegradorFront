@@ -9,7 +9,7 @@ const AlbergueLista = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('https://api-integrador-nu.vercel.app/api/albergues/all')
+    axios.get('https://backend-mxe4.onrender.com/api/albergues/all')
       .then(res => setAlbergues(res.data.data || []))
       .catch(err => console.error('Error cargando albergues:', err));
   }, []);
@@ -22,7 +22,7 @@ const AlbergueLista = () => {
   const handleActualizar = async () => {
     try {
       await axios.put(
-        `https://api-integrador-nu.vercel.app/api/albergues/id/${albergue.id}`,
+        `https://backend-mxe4.onrender.com/api/albergues/id/${albergue.id}`,
         albergue
       );
       alert('Albergue actualizado con éxito.');
@@ -36,7 +36,7 @@ const AlbergueLista = () => {
     if (!window.confirm('¿Estás seguro de eliminar este albergue?')) return;
     try {
       await axios.delete(
-        `https://api-integrador-nu.vercel.app/api/albergues/id/${albergue.id}`
+        `https://backend-mxe4.onrender.com/api/albergues/id/${albergue.id}`
       );
       alert('Albergue eliminado.');
       window.location.reload();
