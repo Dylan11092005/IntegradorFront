@@ -51,8 +51,9 @@ const ListaUsuarios = () => {
       name: "Municipalidad",
       selector: (row) =>
         row.nombreMunicipalidad ||
-        (row.municipalidad.nombre) ||
-        row.municipalidad,
+        row.municipalidad?.nombre ||
+        row.municipalidad ||
+        "-",
       style: { minWidth: "0px", whiteSpace: "left", textAlign: "left" },
       headerStyle: { textAlign: "center" }
     },
