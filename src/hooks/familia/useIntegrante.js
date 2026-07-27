@@ -95,25 +95,35 @@ const useIntegrante = (datos = {}, setDatos) => {
     }));
   };
 
-  
+  // Valores por defecto obligatorios (evita enviar undefined al backend)
   useEffect(() => {
-    if (!datos.FamiliaDatosPersonales?.tipoIdentificacion) {
-      setDatos(prev => ({
-        ...prev,
-        FamiliaDatosPersonales: {
-          ...prev.FamiliaDatosPersonales,
-          tipoIdentificacion: "Cédula",
-        },
-      }));
-    }
+    setDatos(prev => ({
+      ...prev,
+      FamiliaDatosPersonales: {
+        ...prev.FamiliaDatosPersonales,
+        tipoIdentificacion:
+          prev.FamiliaDatosPersonales?.tipoIdentificacion || "Cédula",
+        usaMedicamentos:
+          prev.FamiliaDatosPersonales?.usaMedicamentos ?? false,
+      },
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  
   const validarIntegrante = (dp) => {
     if (!dp.nombre?.trim()) return "Falta el nombre.";
     if (!dp.numeroIdentificacion?.trim()) return "Falta el número de identificación.";
     if (!dp.tipoIdentificacion?.trim()) return "Falta el tipo de identificación.";
     return null;
+  };
+
+  // Normaliza el objeto FamiliaDatosPersonales justo antes de enviarlo,
+  // garantizando que usaMedicamentos siempre viaje como booleano real.
+  const prepararDatosParaEnvio = (dp = datos.FamiliaDatosPersonales || {}) => {
+    return {
+      ...dp,
+      usaMedicamentos: Boolean(dp.usaMedicamentos),
+    };
   };
 
   return {
@@ -127,6 +137,7 @@ const useIntegrante = (datos = {}, setDatos) => {
     limpiarFirma,
     calcularEdad,
     validarIntegrante,
+    prepararDatosParaEnvio,
   };
 };
 
