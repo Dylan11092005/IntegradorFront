@@ -279,6 +279,8 @@ const FamiliaFormulario = () => {
       const persona = {
         tieneCondicionSalud: ce.tieneCondicionSalud ?? true,
         descripcionCondicionSalud: ce.descripcionCondicionSalud || ce.otrasCondiciones || null,
+        usaMedicamentos: Boolean(ce.usaMedicamentos),
+        detalleMedicamentos: ce.detalleMedicamentos || null,
         discapacidad: ce.discapacidad ?? false,
         tipoDiscapacidad: ce.tipoDiscapacidad || null,
         subtipoDiscapacidad: ce.subtipoDiscapacidad || null,
@@ -378,6 +380,16 @@ const FamiliaFormulario = () => {
       showCustomToast(
         "Dato inválido",
         "El teléfono debe tener el formato 8888-8888.",
+        "error"
+      );
+      setLoading(false);
+      return;
+    }
+
+    if (ce.usaMedicamentos !== true && ce.usaMedicamentos !== false) {
+      showCustomToast(
+        "Campo incompleto",
+        "Indique si el integrante usa medicamentos actualmente.",
         "error"
       );
       setLoading(false);
@@ -711,6 +723,58 @@ const FamiliaFormulario = () => {
                 type="textarea"
               />
             </>
+          )}
+
+          {/* Uso de medicamentos */}
+          <label className="text-teal-600 font-bold select-none col-span-2 mt-4">
+            ¿Usa medicamentos actualmente?
+          </label>
+          <div className="flex items-center gap-6 col-span-2 mt-2">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="usaMedicamentos"
+                checked={ce.usaMedicamentos === true}
+                onChange={() =>
+                  setDatos(prev => ({
+                    ...prev,
+                    FamiliaCondicionesEspeciales: {
+                      ...prev.FamiliaCondicionesEspeciales,
+                      usaMedicamentos: true,
+                    },
+                  }))
+                }
+                className="form-radio h-5 w-5 text-teal-600 border-teal-600 focus:ring-teal-500"
+              />
+              <span className="text-teal-600 font-semibold select-none">Sí</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="radio"
+                name="usaMedicamentos"
+                checked={ce.usaMedicamentos === false}
+                onChange={() =>
+                  setDatos(prev => ({
+                    ...prev,
+                    FamiliaCondicionesEspeciales: {
+                      ...prev.FamiliaCondicionesEspeciales,
+                      usaMedicamentos: false,
+                    },
+                  }))
+                }
+                className="form-radio h-5 w-5 text-teal-600 border-teal-600 focus:ring-teal-500"
+              />
+              <span className="text-teal-600 font-semibold select-none">No</span>
+            </label>
+          </div>
+          {ce.usaMedicamentos === true && (
+            <InputField
+              label="Indique cuáles medicamentos"
+              name="detalleMedicamentos"
+              value={ce.detalleMedicamentos || ""}
+              onChange={e => handleChange(e, "FamiliaCondicionesEspeciales")}
+              type="textarea"
+            />
           )}
 
           {/* Discapacidad */}
