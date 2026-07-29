@@ -95,16 +95,16 @@ const useIntegrante = (datos = {}, setDatos) => {
     }));
   };
 
+  // Valores por defecto obligatorios (evita enviar undefined al backend)
   useEffect(() => {
-    if (!datos.FamiliaDatosPersonales?.tipoIdentificacion) {
-      setDatos(prev => ({
-        ...prev,
-        FamiliaDatosPersonales: {
-          ...prev.FamiliaDatosPersonales,
-          tipoIdentificacion: "Cédula",
-        },
-      }));
-    }
+    setDatos(prev => ({
+      ...prev,
+      FamiliaDatosPersonales: {
+        ...prev.FamiliaDatosPersonales,
+        tipoIdentificacion:
+          prev.FamiliaDatosPersonales?.tipoIdentificacion || "Cédula",
+      },
+    }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
